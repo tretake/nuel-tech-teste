@@ -1,0 +1,9 @@
+<h2>Lista de Produtos</h2>
+
+<ul *ngIf="products.length > 0">
+  <li *ngFor="let product of products">
+    {{ product.name }} - R$ {{ product.price }} (Estoque: {{ product.stock }})
+  </li>
+</ul>
+
+<p *ngIf="products.length === 0">Nenhum produto encontrado.</p>

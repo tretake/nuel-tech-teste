@@ -1,12 +1,16 @@
 const express = require('express');
 const { PrismaClient } = require('@prisma/client');
+const cors = require('cors');
 
 const prisma = new PrismaClient();
 const app = express();
 const port = 3000;
 
-app.use(express.json());
 
+
+
+app.use(express.json());
+app.use(cors());
 
 app.get('/products', async (req, res) => {
   try {
