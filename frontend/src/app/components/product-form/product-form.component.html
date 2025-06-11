@@ -1,0 +1,54 @@
+<h2>Criar Produto</h2>
+
+<form (ngSubmit)="onSubmit()">
+  <label>
+    Nome:
+    <input
+      type="text"
+      [(ngModel)]="product.name"
+      name="name"
+      required
+    /> </label
+  ><br />
+
+  <label>
+    Descrição:
+    <input
+      type="text"
+      [(ngModel)]="product.description"
+      name="description"
+    /> </label
+  ><br />
+
+  <label>
+    Preço:
+    <input
+      type="number"
+      [(ngModel)]="product.price"
+      name="price"
+      required
+    /> </label
+  ><br />
+
+  <label>
+    Categoria:
+    <input
+      type="text"
+      [(ngModel)]="product.category"
+      name="category"
+      required
+    /> </label
+  ><br />
+
+  <label>
+    Estoque:
+    <input
+      type="number"
+      [(ngModel)]="product.stock"
+      name="stock"
+      required
+    /> </label
+  ><br />
+
+  <button type="submit">Salvar</button>
+</form>

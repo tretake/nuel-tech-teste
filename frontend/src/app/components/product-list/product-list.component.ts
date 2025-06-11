@@ -13,13 +13,30 @@ export class ProductListComponent implements OnInit {
   constructor(private productService: ProductService) { } // injetar o serviço
 
   ngOnInit(): void {
-    
+    this.loadProducts();
+  }
+
+  loadProducts(): void {
     this.productService.getProducts().subscribe({
       next: (data) => {
         this.products = data; 
       },
       error: (err) => {
         console.error('Error loading products:', err); 
+      }
+    });
+  }
+
+  deleteProduct(id: number | undefined): void {
+    if (!id) return;
+
+    this.productService.deleteProduct(id).subscribe({
+      next: () => {
+        console.log(`Product with id ${id} deleted`);
+        this.loadProducts(); 
+      },
+      error: (err) => {
+        console.error('Error deleting product:', err);
       }
     });
   }

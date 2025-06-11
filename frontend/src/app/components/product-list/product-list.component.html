@@ -3,6 +3,7 @@
 <ul *ngIf="products.length > 0">
   <li *ngFor="let product of products">
     {{ product.name }} - R$ {{ product.price }} (Estoque: {{ product.stock }})
+    <button (click)="deleteProduct(product.id)">Excluir</button>
   </li>
 </ul>
 
