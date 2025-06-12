@@ -1,7 +1,12 @@
+require('dotenv').config();
 const express = require('express');
 const { PrismaClient } = require('@prisma/client');
 const cors = require('cors');
 const { z } = require('zod');
+
+const bcrypt = require('bcryptjs');
+const { generateToken } = require('./utils/auth');
+const authMiddleware = require('./middlewares/authMiddleware');
 
 const prisma = new PrismaClient();
 const app = express();
@@ -23,7 +28,7 @@ const productSchema = z.object({
 });
 
 
-app.get('/products', async (req, res) => {
+app.get('/products',authMiddleware, async (req, res) => {
   try {
     const products = await prisma.product.findMany();
     res.json(products);
@@ -33,7 +38,7 @@ app.get('/products', async (req, res) => {
 }); 
 
 
-app.post('/products', async (req, res) => {
+app.post('/products',authMiddleware, async (req, res) => {
   try {
     const validatedData  = productSchema.parse(req.body);
     const product  = await prisma.product.create({
@@ -49,7 +54,7 @@ app.post('/products', async (req, res) => {
 });
 
 
-app.put('/products/:id', async (req, res) => {
+app.put('/products/:id',authMiddleware, async (req, res) => {
   try {
     const id = parseInt(req.params.id);
     if (isNaN(id)) return res.status(400).json({ error: 'ID inválido' });
@@ -73,7 +78,7 @@ app.put('/products/:id', async (req, res) => {
 
 
 
-app.delete('/products/:id', async (req, res) => {
+app.delete('/products/:id',authMiddleware, async (req, res) => {
   try {
     const id = parseInt(req.params.id);
     if (isNaN(id)) return res.status(400).json({ error: 'ID inválido' });
@@ -85,6 +90,41 @@ app.delete('/products/:id', async (req, res) => {
   }
 });
 
+
+
+
+app.post('/signup', async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = await prisma.user.create({
+      data: { email, password: hashedPassword },
+    });
+
+    const token = generateToken(user);
+    res.json({ user: { id: user.id, email: user.email }, token });
+  } catch (err) {
+    res.status(400).json({ error: 'Erro ao criar usuário', details: err.message });
+  }
+});
+
+app.post('/signin', async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await prisma.user.findUnique({ where: { email } });
+    if (!user) return res.status(401).json({ error: 'Usuário não encontrado' });
+
+    const valid = await bcrypt.compare(password, user.password);
+    if (!valid) return res.status(401).json({ error: 'Senha incorreta' });
+
+    const token = generateToken(user);
+    res.json({ user: { id: user.id, email: user.email }, token });
+  } catch (err) {
+    res.status(500).json({ error: 'Erro ao autenticar usuário', details: err.message });
+  }
+});
 
 
 
