@@ -1,9 +1,15 @@
-<header>
-  <ng-container *ngIf="user; else notLogged">
-    <span>({{ user.email }})</span>
-    <button (click)="logout()">Sair</button>
-  </ng-container>
-  <ng-template #notLogged>
-    <span>Não autenticado</span>
-  </ng-template>
+<header class="main-header">
+  <div class="header-content">
+    <span class="logo">Nuel Tech</span>
+    <ng-container *ngIf="user; else notLogged">
+      <div class="user-info">
+        <span class="user-name">{{ user.name ? user.name : "Usuário" }}</span>
+        <span class="user-email">&lt;{{ user.email }}&gt;</span>
+        <button class="logout-btn" (click)="logout()">Sair</button>
+      </div>
+    </ng-container>
+    <ng-template #notLogged>
+      <span class="not-logged">Não autenticado</span>
+    </ng-template>
+  </div>
 </header>

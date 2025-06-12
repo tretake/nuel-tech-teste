@@ -30,8 +30,10 @@ export class CadastroComponent {
   }
 
   onSubmit(): void {
-    if (this.signupForm.invalid) return;
-
+    if (this.signupForm.invalid){
+      this.signupForm.markAllAsTouched();
+      return;
+    }
     const { email, password } = this.signupForm.value;
 
     this.authService.signup(email, password).subscribe({

@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     FormsModule 
   ],
+  styleUrls: ['./product-form.component.scss'] 
 })
 export class ProductFormComponent {
   @Output() productCreated = new EventEmitter<void>(); //evento para atualizar product-list
@@ -19,6 +20,17 @@ export class ProductFormComponent {
     category: '',
     stock: 0
   };
+
+  showModal = false;
+
+  openModal() {
+    this.showModal = true;
+  }
+
+  closeModal() {
+    this.showModal = false;
+    this.resetForm();
+  }
 
   constructor(private productService: ProductService) {}
 
@@ -51,6 +63,7 @@ export class ProductFormComponent {
         console.log('Produto criado:', created);
         this.resetForm();
         this.productCreated.emit(); // Emite o evento
+        this.closeModal();
       },
       error: (err) => console.error('Erro ao criar produto:', err)
     });

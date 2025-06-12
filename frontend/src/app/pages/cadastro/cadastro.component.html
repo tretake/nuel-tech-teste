@@ -6,10 +6,15 @@
     <input type="email" id="email" formControlName="email" />
     <div
       *ngIf="
-        signupForm.get('email')?.invalid && signupForm.get('email')?.touched
+        signupForm.get('email')?.touched && signupForm.get('email')?.errors
       "
     >
-      Email inválido
+      <span *ngIf="signupForm.get('email')?.errors?.['required']"
+        >Email é obrigatório.</span
+      >
+      <span *ngIf="signupForm.get('email')?.errors?.['email']"
+        >Email inválido.</span
+      >
     </div>
   </div>
 
@@ -18,15 +23,17 @@
     <input type="password" id="password" formControlName="password" />
     <div
       *ngIf="
-        signupForm.get('password')?.invalid &&
-        signupForm.get('password')?.touched
+        signupForm.get('password')?.touched &&
+        signupForm.get('password')?.errors
       "
     >
-      Senha é obrigatória
+      <span *ngIf="signupForm.get('password')?.errors?.['required']"
+        >Senha é obrigatória.</span
+      >
     </div>
   </div>
 
-  <button type="submit" [disabled]="signupForm.invalid">Cadastrar</button>
+  <button type="submit">Cadastrar</button>
   <p *ngIf="errorMessage" style="color: red">{{ errorMessage }}</p>
   <p>
     Já tem uma conta?

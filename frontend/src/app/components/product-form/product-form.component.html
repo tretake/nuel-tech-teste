@@ -1,35 +1,55 @@
-<h2>Criar Produto</h2>
+<button class="fab" (click)="openModal()" *ngIf="!showModal">+</button>
 
-<form (ngSubmit)="onSubmit()">
-  <label>
-    Nome:
-    <input type="text" [(ngModel)]="product.name" name="name" required />
-  </label>
-
-  <label>
-    Descrição:
-    <input type="text" [(ngModel)]="product.description" name="description" />
-  </label>
-
-  <label>
-    Preço:
-    <input type="number" [(ngModel)]="product.price" name="price" required />
-  </label>
-
-  <label>
-    Categoria:
-    <input
-      type="text"
-      [(ngModel)]="product.category"
-      name="category"
-      required
-    />
-  </label>
-
-  <label>
-    Estoque:
-    <input type="number" [(ngModel)]="product.stock" name="stock" required />
-  </label>
-
-  <button type="submit">Salvar</button>
-</form>
+<div class="modal-backdrop" *ngIf="showModal" (click)="closeModal()"></div>
+<div class="modal" *ngIf="showModal">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h2>Criar Produto</h2>
+    <form (ngSubmit)="onSubmit()">
+      <label>
+        Nome:
+        <input type="text" [(ngModel)]="product.name" name="name" required />
+      </label>
+      <label>
+        Descrição:
+        <input
+          type="text"
+          [(ngModel)]="product.description"
+          name="description"
+        />
+      </label>
+      <label>
+        Preço:
+        <input
+          type="number"
+          [(ngModel)]="product.price"
+          name="price"
+          required
+        />
+      </label>
+      <label>
+        Categoria:
+        <input
+          type="text"
+          [(ngModel)]="product.category"
+          name="category"
+          required
+        />
+      </label>
+      <label>
+        Estoque:
+        <input
+          type="number"
+          [(ngModel)]="product.stock"
+          name="stock"
+          required
+        />
+      </label>
+      <div class="modal-actions">
+        <button type="submit">Salvar</button>
+        <button type="button" class="cancel-btn" (click)="closeModal()">
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,7 +1,21 @@
+h2 {
+  
+  text-align: center;
+  color: #1f558b;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-top: 24px;
+  margin-bottom: 18px;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+}
 .product-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    
+    
+    
   }
   
   .product-table th,
@@ -9,16 +23,19 @@
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
+    
   }
   
   .product-table th {
     background-color: #f4f4f4;
     font-weight: bold;
+    margin-left: 200px;
   }
   
   .product-table tr:nth-child(even) {
     background-color: #f9f9f9;
   }
+  
   
   .product-table tr:hover {
     background-color: #f1f1f1;
@@ -28,14 +45,14 @@
     margin-right: 5px;
     padding: 5px 10px;
     border: none;
-    background-color: #007bff;
+    background-color:  #1f558b ;
     color: white;
     cursor: pointer;
     border-radius: 4px;
   }
   
   .product-table button:hover {
-    background-color: #0056b3;
+    background-color: #007bff;
   }
   
   .edit-form {
