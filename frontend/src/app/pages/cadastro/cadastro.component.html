@@ -1,11 +1,13 @@
-<h2>Login</h2>
+<h2>Cadastro</h2>
 
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
   <div>
     <label for="email">Email:</label>
     <input type="email" id="email" formControlName="email" />
     <div
-      *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+      *ngIf="
+        signupForm.get('email')?.invalid && signupForm.get('email')?.touched
+      "
     >
       Email inválido
     </div>
@@ -16,17 +18,18 @@
     <input type="password" id="password" formControlName="password" />
     <div
       *ngIf="
-        loginForm.get('password')?.invalid && loginForm.get('password')?.touched
+        signupForm.get('password')?.invalid &&
+        signupForm.get('password')?.touched
       "
     >
       Senha é obrigatória
     </div>
   </div>
 
-  <button type="submit" [disabled]="loginForm.invalid">Entrar</button>
+  <button type="submit" [disabled]="signupForm.invalid">Cadastrar</button>
   <p *ngIf="errorMessage" style="color: red">{{ errorMessage }}</p>
   <p>
-    Não tem uma conta?
-    <button type="button" (click)="goToCadastro()">Cadastre-se</button>
+    Já tem uma conta?
+    <button type="button" (click)="goToLogin()">Entrar</button>
   </p>
 </form>

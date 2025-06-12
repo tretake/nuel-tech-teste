@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
-import { BehaviorSubject } from 'rxjs';
+import { Observable, tap, BehaviorSubject  } from 'rxjs';
 
 
 export interface User {
@@ -19,20 +18,22 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  login(email: string, password: string): Observable<{ token: string, user: any }> {
-    return this.http.post<{ token: string, user: any }>(`${this.apiUrl}/signin`, { email, password }).pipe(
+  login(email: string, password: string): Observable<{ token: string, user: User }> {
+    return this.http.post<{ token: string, user: User }>(`${this.apiUrl}/signin`, { email, password }).pipe(
       tap(response => {
         localStorage.setItem('token', response.token);
         localStorage.setItem('user', JSON.stringify(response.user));
-        this.userSubject.next(response.user); // Atualiza o observable
+        this.userSubject.next(response.user); 
       })
     );
   }
 
-  signup(email: string, password: string): Observable<{ token: string }> {
-    return this.http.post<{ token: string }>(`${this.apiUrl}/signup`, { email, password }).pipe(
+  signup(email: string, password: string): Observable<{ token: string, user: User }> {
+    return this.http.post<{ token: string, user: User }>(`${this.apiUrl}/signup`, { email, password }).pipe(
       tap(response => {
         localStorage.setItem('token', response.token);
+        localStorage.setItem('user', JSON.stringify(response.user));
+        this.userSubject.next(response.user); 
       })
     );
   }
@@ -44,7 +45,7 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    this.userSubject.next(null); // Atualiza o observable
+    this.userSubject.next(null); 
   }
 
   getToken(): string | null {
@@ -52,6 +53,6 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-    return !!this.getToken(); // true se houver token
+    return !!this.getToken(); 
   }
 }

@@ -15,9 +15,6 @@ import { Router } from '@angular/router';
   styleUrl: './login.component.scss'
 })
 
-
-
-
 export class LoginComponent {
   loginForm: FormGroup;
   errorMessage: string | null = null;
@@ -28,7 +25,7 @@ export class LoginComponent {
     private router: Router
   ) {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required /* , Validators.email  */]],
+      email: ['', [Validators.required  , Validators.email ]],
       password: ['', [Validators.required]],
     });
   }
@@ -47,4 +44,8 @@ export class LoginComponent {
       },
     });
   }
+
+  goToCadastro() {
+  this.router.navigate(['/cadastro']);
+}
 }

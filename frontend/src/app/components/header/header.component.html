@@ -1,6 +1,6 @@
 <header>
   <ng-container *ngIf="user; else notLogged">
-    <span>{{ user.name }} ({{ user.email }})</span>
+    <span>({{ user.email }})</span>
     <button (click)="logout()">Sair</button>
   </ng-container>
   <ng-template #notLogged>
