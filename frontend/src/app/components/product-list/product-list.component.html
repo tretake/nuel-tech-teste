@@ -68,7 +68,7 @@
       <ng-template #viewMode>
         <td>{{ product.name }}</td>
         <td>{{ product.description }}</td>
-        <td>R$ {{ product.price }}</td>
+        <td>{{ product.price | currency : "BRL" : "symbol" : "1.2-2" }}</td>
         <td>{{ product.category }}</td>
         <td>{{ product.stock }}</td>
         <td>

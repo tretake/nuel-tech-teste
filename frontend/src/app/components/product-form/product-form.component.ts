@@ -27,8 +27,8 @@ export class ProductFormComponent {
       alert('O nome do produto não pode ficar em branco.');
       return;
     }
-    if (this.product.price < 0) {
-      alert('O preço não pode ser negativo.');
+    if (this.product.price <= 0) {
+      alert('O preço não pode ser menor que zero.');
       return;
     }
     if (!this.product.category || this.product.category.trim() === '') {
@@ -39,7 +39,12 @@ export class ProductFormComponent {
       alert('O estoque não pode ser negativo.');
       return;
     }
+    if (!Number.isInteger(this.product.stock)) {
+      alert('O estoque precisa ser um número inteiro.');
+      return;
+    }
 
+     
 
     this.productService.createProduct(this.product).subscribe({
       next: (created) => {
