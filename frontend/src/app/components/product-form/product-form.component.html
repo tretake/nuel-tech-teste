@@ -3,32 +3,18 @@
 <form (ngSubmit)="onSubmit()">
   <label>
     Nome:
-    <input
-      type="text"
-      [(ngModel)]="product.name"
-      name="name"
-      required
-    /> </label
-  ><br />
+    <input type="text" [(ngModel)]="product.name" name="name" required />
+  </label>
 
   <label>
     Descrição:
-    <input
-      type="text"
-      [(ngModel)]="product.description"
-      name="description"
-    /> </label
-  ><br />
+    <input type="text" [(ngModel)]="product.description" name="description" />
+  </label>
 
   <label>
     Preço:
-    <input
-      type="number"
-      [(ngModel)]="product.price"
-      name="price"
-      required
-    /> </label
-  ><br />
+    <input type="number" [(ngModel)]="product.price" name="price" required />
+  </label>
 
   <label>
     Categoria:
@@ -37,18 +23,13 @@
       [(ngModel)]="product.category"
       name="category"
       required
-    /> </label
-  ><br />
+    />
+  </label>
 
   <label>
     Estoque:
-    <input
-      type="number"
-      [(ngModel)]="product.stock"
-      name="stock"
-      required
-    /> </label
-  ><br />
+    <input type="number" [(ngModel)]="product.stock" name="stock" required />
+  </label>
 
   <button type="submit">Salvar</button>
 </form>

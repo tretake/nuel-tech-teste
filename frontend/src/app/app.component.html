@@ -1,4 +1,4 @@
 <!-- <router-outlet> </router-outlet> -->
 
-<app-product-form></app-product-form>
-<app-product-list></app-product-list>
+<app-product-form (productCreated)="onProductCreated()"></app-product-form>
+<app-product-list #productList></app-product-list>

@@ -1,10 +1,83 @@
 <h2>Lista de Produtos</h2>
 
-<ul *ngIf="products.length > 0">
-  <li *ngFor="let product of products">
-    {{ product.name }} - R$ {{ product.price }} (Estoque: {{ product.stock }})
-    <button (click)="deleteProduct(product.id)">Excluir</button>
-  </li>
-</ul>
+<table *ngIf="products.length > 0" class="product-table">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Descrição</th>
+      <th>Preço</th>
+      <th>Categoria</th>
+      <th>Estoque</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let product of products">
+      <!-- checar se o produto esta sendo editado -->
+      <ng-container
+        *ngIf="
+          selectedProduct && selectedProduct.id === product.id;
+          else viewMode
+        "
+      >
+        <td>
+          <input
+            type="text"
+            [(ngModel)]="selectedProduct.name"
+            name="name"
+            required
+          />
+        </td>
+        <td>
+          <input
+            type="text"
+            [(ngModel)]="selectedProduct.description"
+            name="name"
+            required
+          />
+        </td>
+        <td>
+          <input
+            type="number"
+            [(ngModel)]="selectedProduct.price"
+            name="price"
+            required
+          />
+        </td>
+        <td>
+          <input
+            type="text"
+            [(ngModel)]="selectedProduct.category"
+            name="name"
+            required
+          />
+        </td>
+        <td>
+          <input
+            type="number"
+            [(ngModel)]="selectedProduct.stock"
+            name="stock"
+            required
+          />
+        </td>
+        <td>
+          <button (click)="saveProduct()">Salvar</button>
+          <button (click)="cancelEdit()">Cancelar</button>
+        </td>
+      </ng-container>
+      <ng-template #viewMode>
+        <td>{{ product.name }}</td>
+        <td>{{ product.description }}</td>
+        <td>R$ {{ product.price }}</td>
+        <td>{{ product.category }}</td>
+        <td>{{ product.stock }}</td>
+        <td>
+          <button (click)="editProduct(product)">Editar</button>
+          <button (click)="deleteProduct(product.id)">Excluir</button>
+        </td>
+      </ng-template>
+    </tr>
+  </tbody>
+</table>
 
 <p *ngIf="products.length === 0">Nenhum produto encontrado.</p>
