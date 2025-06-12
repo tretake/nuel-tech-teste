@@ -1,6 +1,7 @@
 const express = require('express');
 const { PrismaClient } = require('@prisma/client');
 const cors = require('cors');
+const { z } = require('zod');
 
 const prisma = new PrismaClient();
 const app = express();
@@ -11,6 +12,16 @@ const port = 3000;
 
 app.use(express.json());
 app.use(cors());
+
+// validações API
+const productSchema = z.object({
+  name: z.string().trim().min(1, 'Nome é obrigatório'),
+  description: z.string().trim().optional().nullable(),
+  price: z.number().positive('Preço deve ser maior que zero'),
+  category: z.string().trim().min(1, 'Categoria é obrigatório'),
+  stock: z.number().int().nonnegative('Estoque não pode ser negativo'),
+});
+
 
 app.get('/products', async (req, res) => {
   try {
@@ -24,34 +35,40 @@ app.get('/products', async (req, res) => {
 
 app.post('/products', async (req, res) => {
   try {
-    const { name, description, price, category, stock } = req.body;
-    const product = await prisma.product.create({
-      data: { name, description, price, category, stock },
-    });
+    const validatedData  = productSchema.parse(req.body);
+    const product  = await prisma.product.create({
+      data: validatedData,
+    })
     res.status(201).json(product);
   } catch (err) {
-    res.status(400).json({ error: 'Erro ao criar produto' });
+    if (err instanceof z.ZodError) {
+      return res.status(400).json({ error: 'Erro de validação', details: err.errors });
+    }
+    res.status(500).json({ error: 'Erro ao criar produto', details: err.message });
   }
-}); 
-
-
+});
 
 
 app.put('/products/:id', async (req, res) => {
   try {
     const id = parseInt(req.params.id);
-    const { name, description, price, category, stock } = req.body;
+    if (isNaN(id)) return res.status(400).json({ error: 'ID inválido' });
+
+    const validatedData = productSchema.parse(req.body);
 
     const updated = await prisma.product.update({
       where: { id },
-      data: { name, description, price, category, stock },
+      data: validatedData,
     });
 
     res.json(updated);
   } catch (err) {
-    res.status(400).json({ error: 'Erro ao atualizar produto' });
+    if (err instanceof z.ZodError) {
+      return res.status(400).json({ error: 'Erro de validação', details: err.errors });
+    }
+    res.status(400).json({ error: 'Erro ao atualizar produto', details: err.message });
   }
-}); 
+});
 
 
 
@@ -59,12 +76,15 @@ app.put('/products/:id', async (req, res) => {
 app.delete('/products/:id', async (req, res) => {
   try {
     const id = parseInt(req.params.id);
+    if (isNaN(id)) return res.status(400).json({ error: 'ID inválido' });
+
     await prisma.product.delete({ where: { id } });
-    res.status(204).send(); 
+    res.status(204).send();
   } catch (err) {
-    res.status(400).json({ error: 'Erro ao deletar produto' });
+    res.status(400).json({ error: 'Erro ao deletar produto', details: err.message });
   }
-}); 
+});
+
 
 
 

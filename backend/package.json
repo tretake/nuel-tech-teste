@@ -12,7 +12,8 @@
     "@prisma/client": "^6.9.0",
     "cors": "^2.8.5",
     "express": "^5.1.0",
-    "mysql2": "^3.14.1"
+    "mysql2": "^3.14.1",
+    "zod": "^3.25.62"
   },
   "devDependencies": {
     "prisma": "^6.9.0"
