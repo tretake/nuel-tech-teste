@@ -19,7 +19,7 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(email: string, password: string): Observable<{ token: string, user: User }> {
-    return this.http.post<{ token: string, user: User }>(`${this.apiUrl}/signin`, { email, password }).pipe(
+    return this.http.post<{ token: string, user: User }>(`${this.apiUrl}/sessions`, { email, password }).pipe(
       tap(response => {
         localStorage.setItem('token', response.token);
         localStorage.setItem('user', JSON.stringify(response.user));
@@ -29,7 +29,7 @@ export class AuthService {
   }
 
   signup(email: string, password: string): Observable<{ token: string, user: User }> {
-    return this.http.post<{ token: string, user: User }>(`${this.apiUrl}/signup`, { email, password }).pipe(
+    return this.http.post<{ token: string, user: User }>(`${this.apiUrl}/users`, { email, password }).pipe(
       tap(response => {
         localStorage.setItem('token', response.token);
         localStorage.setItem('user', JSON.stringify(response.user));
