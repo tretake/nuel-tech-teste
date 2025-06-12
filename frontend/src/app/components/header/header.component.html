@@ -1,0 +1,9 @@
+<header>
+  <ng-container *ngIf="user; else notLogged">
+    <span>{{ user.name }} ({{ user.email }})</span>
+    <button (click)="logout()">Sair</button>
+  </ng-container>
+  <ng-template #notLogged>
+    <span>Não autenticado</span>
+  </ng-template>
+</header>

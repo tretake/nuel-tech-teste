@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
+
 
 export interface User {
   name: string;
@@ -12,14 +14,17 @@ export interface User {
 })
 export class AuthService {
   private apiUrl = 'http://localhost:3000';
+  private userSubject = new BehaviorSubject<any>(this.getUser());
+  user$ = this.userSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
-  login(email: string, password: string): Observable<{ token: string }> {
-    return this.http.post<{ token: string }>(`${this.apiUrl}/signin`, { email, password }).pipe(
+  login(email: string, password: string): Observable<{ token: string, user: any }> {
+    return this.http.post<{ token: string, user: any }>(`${this.apiUrl}/signin`, { email, password }).pipe(
       tap(response => {
         localStorage.setItem('token', response.token);
-        //localStorage.setItem('user', response.user);
+        localStorage.setItem('user', JSON.stringify(response.user));
+        this.userSubject.next(response.user); // Atualiza o observable
       })
     );
   }
@@ -31,9 +36,15 @@ export class AuthService {
       })
     );
   }
+  getUser(): any | null {
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user) : null;
+  }
 
   logout(): void {
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.userSubject.next(null); // Atualiza o observable
   }
 
   getToken(): string | null {
