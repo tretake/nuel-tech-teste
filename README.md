@@ -151,9 +151,11 @@ Deleta um produto. Requer token JWT no header.
 ### 2. backend
 
 ```bash
-  cd /backend
+  cd backend
   npm install
 ```
+
+Crie um banco de dados MYSQL local
 
 Crie um arquivo .env para suas variáveis de ambiente na pasta backend com o seguinte conteúdo:
 
@@ -177,6 +179,8 @@ inicie o servidor
 
 ### 3. frontend
 
+em outro terminal:
+
 ```bash
   cd frontend
   npm install
@@ -190,13 +194,13 @@ Acesse em `http://localhost:4200`
 ### backend:
 
 ```bash
-  cd /backend
+  cd backend
   npx jest
 ```
 
 ## frontend:
 
 ```bash
-  cd /frontend
+  cd frontend
   ng test
 ```
