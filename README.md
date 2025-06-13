@@ -2,6 +2,14 @@
 
 Aplicação full stack para gerenciamento de produtos, com autenticação JWT, backend em Node.js + Express + Prisma e frontend em Angular. Permite cadastro/login de usuários e CRUD de produtos protegidos por autenticação.
 
+### 📚 Índice
+
+- [ Tecnologias Utilizadas](#tecnologias-utilizadas)
+- [ Autenticação](#autenticacao-jwt)
+- [ Rotas da API](#rotas-da-api)
+- [ Como rodar o projeto](#como-rodar-o-projeto)
+- [ Rodando os testes](#rodando-os-testes)
+
 ## Tecnologias Utilizadas
 
 - **Node.js + Express**
@@ -14,7 +22,7 @@ Aplicação full stack para gerenciamento de produtos, com autenticação JWT, b
 - **Jest e Supertest (testes unitarios backend)**
 - **Angular**
 
-## 🔐 Autenticação (JWT)
+## Autenticação JWT
 
 Após o cadastro ou login, o backend retorna um token JWT que deve ser enviado no cabeçalho das requisições protegidas:
 
@@ -26,7 +34,7 @@ Authorization: Bearer <token>
 
 ## criar usuarios e gerar tokens(log in):
 
-### 🔸[POST /users]
+### 🔸post-users [POST /users]
 
 Cria um novo usuário.
 
