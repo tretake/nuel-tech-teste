@@ -161,7 +161,7 @@ Crie um arquivo .env para suas variáveis de ambiente na pasta backend com o seg
 
 ```
 DATABASE_URL="mysql://root:SUA_SENHA@localhost:3306/BD_NOME"
-SECRET=uma_chave_secreta_para_jwt
+JWT_SECRET=uma_chave_secreta_para_jwt
 ```
 
 Execute as migrações do Prisma e popule o banco de dados

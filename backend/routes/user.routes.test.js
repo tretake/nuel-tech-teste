@@ -48,3 +48,4 @@ describe('User Routes', () => {
     expect(res.body.error).toBe('Senha incorreta');
   });
 });
+
