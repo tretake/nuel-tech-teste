@@ -27,12 +27,15 @@
             name="name"
             required
           />
+          <span class="error" *ngIf="editValidationErrors.name">{{
+            editValidationErrors.name
+          }}</span>
         </td>
         <td>
           <input
             type="text"
             [(ngModel)]="selectedProduct.description"
-            name="name"
+            name="description"
             required
           />
         </td>
@@ -43,14 +46,20 @@
             name="price"
             required
           />
+          <span class="error" *ngIf="editValidationErrors.price">{{
+            editValidationErrors.price
+          }}</span>
         </td>
         <td>
           <input
             type="text"
             [(ngModel)]="selectedProduct.category"
-            name="name"
+            name="category"
             required
           />
+          <span class="error" *ngIf="editValidationErrors.category">{{
+            editValidationErrors.category
+          }}</span>
         </td>
         <td>
           <input
@@ -59,6 +68,9 @@
             name="stock"
             required
           />
+          <span class="error" *ngIf="editValidationErrors.stock">{{
+            editValidationErrors.stock
+          }}</span>
         </td>
         <td>
           <button (click)="saveProduct()">Salvar</button>

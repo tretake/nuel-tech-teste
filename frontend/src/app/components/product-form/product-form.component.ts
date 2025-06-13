@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./product-form.component.scss'] 
 })
 export class ProductFormComponent {
-  @Output() productCreated = new EventEmitter<void>(); //evento para atualizar product-list
+  @Output() productCreated = new EventEmitter<void>();
   product: Product = {
     name: '',
     description: '',
@@ -23,6 +23,8 @@ export class ProductFormComponent {
 
   showModal = false;
 
+  validationErrors: any = {};
+
   openModal() {
     this.showModal = true;
   }
@@ -30,39 +32,39 @@ export class ProductFormComponent {
   closeModal() {
     this.showModal = false;
     this.resetForm();
+    this.validationErrors = {};
   }
 
   constructor(private productService: ProductService) {}
 
   onSubmit() {
+    this.validationErrors = {};
+
     if (!this.product.name || this.product.name.trim() === '') {
-      alert('O nome do produto não pode ficar em branco.');
-      return;
+      this.validationErrors.name = 'O nome do produto não pode ficar em branco.';
     }
     if (this.product.price <= 0) {
-      alert('O preço não pode ser menor que zero.');
-      return;
+      this.validationErrors.price = 'O preço não pode ser menor ou igual a zero.';
     }
     if (!this.product.category || this.product.category.trim() === '') {
-      alert('a categoria do produto não pode ficar em branco.');
-      return;
+      this.validationErrors.category = 'A categoria do produto não pode ficar em branco.';
     }
     if (this.product.stock < 0) {
-      alert('O estoque não pode ser negativo.');
-      return;
+      this.validationErrors.stock = 'O estoque não pode ser negativo.';
     }
     if (!Number.isInteger(this.product.stock)) {
-      alert('O estoque precisa ser um número inteiro.');
-      return;
+      this.validationErrors.stock = 'O estoque precisa ser um número inteiro.';
     }
 
-     
+    if (Object.keys(this.validationErrors).length > 0) {
+      return;
+    }
 
     this.productService.createProduct(this.product).subscribe({
       next: (created) => {
         console.log('Produto criado:', created);
         this.resetForm();
-        this.productCreated.emit(); // Emite o evento
+        this.productCreated.emit();
         this.closeModal();
       },
       error: (err) => console.error('Erro ao criar produto:', err)
@@ -77,5 +79,6 @@ export class ProductFormComponent {
       category: '',
       stock: 0
     };
+    this.validationErrors = {};
   }
 }

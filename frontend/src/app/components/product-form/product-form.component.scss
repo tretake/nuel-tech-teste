@@ -20,6 +20,12 @@
 .fab:hover {
   background: #1976d2;
 }
+.error {
+  color: #d32f2f;
+  font-size: 0.95em;
+  margin-top: 0.2rem;
+  display: block;
+}
 
 .modal-backdrop {
   position: fixed;
@@ -135,4 +141,16 @@ button[type="submit"] {
 
 button[type="submit"]:hover {
   background: #1976d2;
+}
+
+button[type="button"] {
+  width: 100%;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 5px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background 0.2s;
 }

@@ -4,14 +4,18 @@
 <div class="modal" *ngIf="showModal">
   <div class="modal-content" (click)="$event.stopPropagation()">
     <h2>Criar Produto</h2>
-    <form (ngSubmit)="onSubmit()">
+    <form (ngSubmit)="onSubmit()" #form="ngForm">
       <label>
         Nome:
         <input type="text" [(ngModel)]="product.name" name="name" required />
+        <span class="error" *ngIf="validationErrors.name">{{
+          validationErrors.name
+        }}</span>
       </label>
       <label>
         Descrição:
         <input
+          placeholder="opcional"
           type="text"
           [(ngModel)]="product.description"
           name="description"
@@ -25,6 +29,9 @@
           name="price"
           required
         />
+        <span class="error" *ngIf="validationErrors.price">{{
+          validationErrors.price
+        }}</span>
       </label>
       <label>
         Categoria:
@@ -34,6 +41,9 @@
           name="category"
           required
         />
+        <span class="error" *ngIf="validationErrors.category">{{
+          validationErrors.category
+        }}</span>
       </label>
       <label>
         Estoque:
@@ -43,6 +53,9 @@
           name="stock"
           required
         />
+        <span class="error" *ngIf="validationErrors.stock">{{
+          validationErrors.stock
+        }}</span>
       </label>
       <div class="modal-actions">
         <button type="submit">Salvar</button>

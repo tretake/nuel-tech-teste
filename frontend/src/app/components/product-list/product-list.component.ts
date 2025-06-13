@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { Product, ProductService } from '../../services/product/product.service'; 
 import { FormsModule } from '@angular/forms';
 
-//product.service
 
 @Component({
   selector: 'app-product-list',
@@ -14,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 export class ProductListComponent implements OnInit {
   products: Product[] = []; 
   selectedProduct: Product | null = null;
+  editValidationErrors: any = {}; 
 
   constructor(private productService: ProductService) { }
 
@@ -48,26 +48,30 @@ export class ProductListComponent implements OnInit {
 
   editProduct(product: Product): void {
     this.selectedProduct = { ...product }; 
+    this.editValidationErrors = {}; 
   }
 
   saveProduct(): void {
     if (!this.selectedProduct || !this.selectedProduct.id) return;
 
-    //Validação de Formulário
+    // Validação de Formulário 
+    this.editValidationErrors = {};
+
     if (!this.selectedProduct.name || this.selectedProduct.name.trim() === '') {
-      alert('O nome do produto não pode ficar em branco.');
-      return;
+      this.editValidationErrors.name = 'O nome do produto não pode ficar em branco.';
     }
-    if (this.selectedProduct.price < 0) {
-      alert('O preço não pode ser negativo.');
-      return;
+    if (this.selectedProduct.price <= 0) {
+      this.editValidationErrors.price = 'O preço não pode ser menor ou igual a zero.';
     }
     if (!this.selectedProduct.category || this.selectedProduct.category.trim() === '') {
-      alert('a categoria do produto não pode ficar em branco.');
-      return;
+      this.editValidationErrors.category = 'A categoria do produto não pode ficar em branco.';
     }
     if (this.selectedProduct.stock < 0) {
-      alert('O estoque não pode ser negativo.');
+      this.editValidationErrors.stock = 'O estoque não pode ser negativo.';
+    }
+    
+
+    if (Object.keys(this.editValidationErrors).length > 0) {
       return;
     }
 
@@ -85,5 +89,6 @@ export class ProductListComponent implements OnInit {
 
   cancelEdit(): void {
     this.selectedProduct = null; 
+    this.editValidationErrors = {};
   }
 }
