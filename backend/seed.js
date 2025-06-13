@@ -1,6 +1,8 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
+
+//script para inserir produtos no banco
 async function main() {
   const products = await prisma.product.createMany({
     data: [
@@ -215,7 +217,7 @@ async function main() {
         price: 89.00,
         category: 'Acessórios',
         stock: 60,
-      },
+      }
     ]
   });
 

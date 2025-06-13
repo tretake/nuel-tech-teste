@@ -13,7 +13,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let product of products">
-      <!-- checar se o produto esta sendo editado -->
+      <!-- produto sendo editado -->
       <ng-container
         *ngIf="
           selectedProduct && selectedProduct.id === product.id;

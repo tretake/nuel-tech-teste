@@ -15,7 +15,7 @@ export class ProductListComponent implements OnInit {
   selectedProduct: Product | null = null;
   editValidationErrors: any = {}; 
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService) { } // Injeta o serviço de produtos
 
   ngOnInit(): void {
     this.loadProducts();

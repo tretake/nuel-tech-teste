@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./product-form.component.scss'] 
 })
 export class ProductFormComponent {
-  @Output() productCreated = new EventEmitter<void>();
+  @Output() productCreated = new EventEmitter<void>();  //evento para atualizar o component product-list
   product: Product = {
     name: '',
     description: '',

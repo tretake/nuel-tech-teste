@@ -10,9 +10,10 @@ import { ProductFormComponent } from '../../components/product-form/product-form
 })
 export class ProductsComponent {
 
+  // Permite acessar métodos de ProductListComponent
   @ViewChild(ProductListComponent) productList!: ProductListComponent;
 
   onProductCreated() {
-    this.productList.loadProducts();
+    this.productList.loadProducts();  // Quando um produto é criado, recarrega a lista de produtos chamando o método do filho
   }
 }

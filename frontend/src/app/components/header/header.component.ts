@@ -14,8 +14,9 @@ export class HeaderComponent implements OnDestroy {
   user: any;
   private sub: Subscription;
 
+  // Injeta AuthService e Router
   constructor(private authService: AuthService, private router: Router) {
-    this.sub = this.authService.user$.subscribe(user => {
+    this.sub = this.authService.user$.subscribe(user => { //para detectar mudanças no usuario
       this.user = user;
     });
   }

@@ -6,6 +6,7 @@ const prisma = new PrismaClient();
 
 const router = express.Router();
 
+//zod para validação
 const productSchema = z.object({
   name: z.string().trim().min(1, 'Nome é obrigatório'),
   description: z.string().trim().optional().nullable(),

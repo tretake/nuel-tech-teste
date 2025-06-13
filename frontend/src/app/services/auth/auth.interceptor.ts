@@ -1,7 +1,8 @@
-// auth.interceptor.ts
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
+//intercepta as chamada para API e adiciona o token JWT caso estaja logado
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {

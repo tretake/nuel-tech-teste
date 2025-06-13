@@ -33,7 +33,7 @@ app.post('/sessions', async (req, res) => {
     const valid = await bcrypt.compare(password, user.password);
     if (!valid) return res.status(401).json({ error: 'Senha incorreta' });
 
-    const token = generateToken(user);
+    const token = generateToken(user); // Gera um token JWT para o usuário autenticado
     res.json({ user: { id: user.id, email: user.email }, token });
   } catch (err) {
     res.status(500).json({ error: 'Erro ao autenticar usuário', details: err.message });
@@ -46,4 +46,4 @@ app.listen(port, () => {
 }); 
 
 
-module.exports = app; 
+module.exports = app; // Exporta o app para testes automatizados

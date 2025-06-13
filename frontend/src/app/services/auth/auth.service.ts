@@ -14,7 +14,7 @@ export interface User {
 export class AuthService {
   private apiUrl = 'http://localhost:3000';
   private userSubject = new BehaviorSubject<any>(this.getUser());
-  user$ = this.userSubject.asObservable();
+  user$ = this.userSubject.asObservable();  //usado para atualizar o componente header
 
   constructor(private http: HttpClient) {}
 
@@ -37,21 +37,25 @@ export class AuthService {
       })
     );
   }
+
+
   getUser(): any | null {
     const user = localStorage.getItem('user');
     return user ? JSON.parse(user) : null;
   }
 
+  // Faz logout, removendo token/usuário do localStorage
   logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     this.userSubject.next(null); 
   }
 
+  // Recupera o token do localStorage
   getToken(): string | null {
     return localStorage.getItem('token');
   }
-
+  // Retorna true se houver token (usuário autenticado), false caso contrário
   isAuthenticated(): boolean {
     return !!this.getToken(); 
   }

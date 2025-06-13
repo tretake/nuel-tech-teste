@@ -12,13 +12,15 @@ export interface Product {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root' // Torna o serviço disponível em toda a aplicação 
 })
 export class ProductService {
   private apiUrl = 'http://localhost:3000/products';
 
   constructor(private http: HttpClient) {}
 
+
+  //ROTAS
   getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(this.apiUrl);
   }
