@@ -145,7 +145,7 @@ Deleta um produto. Requer token JWT no header.
 ### 1. Clone o repositório
 
 ```bash
-  git clone https://github.com/seu-usuario/seu-repo.git
+  git clone https://github.com/tretake/nuel-tech-teste.git
 ```
 
 ### 2. backend
