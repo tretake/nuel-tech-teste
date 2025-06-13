@@ -132,7 +132,6 @@ async function main() {
         category: 'Acessórios',
         stock: 60,
       },
-      ,
       {
         name: 'Camiseta',
         description: 'Camiseta 100% algodão',
@@ -175,7 +174,6 @@ async function main() {
         category: 'Acessórios',
         stock: 60,
       },
-      ,
       {
         name: 'Camiseta',
         description: 'Camiseta 100% algodão',
