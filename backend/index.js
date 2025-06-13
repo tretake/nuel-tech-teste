@@ -44,3 +44,6 @@ app.post('/sessions', async (req, res) => {
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);
 }); 
+
+
+module.exports = app; 
